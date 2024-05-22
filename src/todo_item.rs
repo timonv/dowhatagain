@@ -1,4 +1,4 @@
-use std::{cell::OnceCell, fmt::Display, path::PathBuf, sync::OnceLock};
+use std::{fmt::Display, path::PathBuf, sync::OnceLock};
 
 use derive_builder::Builder;
 use regex::Regex;
