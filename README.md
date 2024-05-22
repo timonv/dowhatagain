@@ -4,6 +4,9 @@ Simple tool for filtering todos from a piped in list of files and outputting to 
 
 TODO comments in code have a tendency to be just left there yet they also have their value when building complicated things.
 
+![image](https://github.com/timonv/todors/assets/49373/226d6307-4dc4-46f1-9806-e3741f728996)
+
+
 ## Installation
 
 Manual:
