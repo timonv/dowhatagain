@@ -23,14 +23,11 @@ TODO: Other thing
 ```
 
 Get all TODOs for the current changeset and output to markdown:
-`git diff master --name-only | todo`
+`git diff master --name-only | todors --output markdown`
 
 ```
-**file: main.rs**
-- [ ] Do thing
-
-**file: other.rs**
-- [ ] Do other thing
+- [ ] file.rs:3 Do thing
+- [ ] other_file.rs:4 Do other thing
 ```
 
 Great for PR checks, commit hooks and custom workflows.
