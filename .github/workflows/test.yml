@@ -1,0 +1,20 @@
+name: Test & lint
+
+on:
+  push:
+
+jobs:
+  test-and-lint:
+    name: Test and lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+      - name: Clippy
+        run: cargo clippy
+      - name: Fmt
+        run: cargo fmt --check
+      - name: Test
+        run: cargo nextest run
