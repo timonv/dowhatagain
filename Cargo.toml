@@ -5,6 +5,8 @@ edition = "2021"
 description = "Simple cli tool to extract todos from piped in files and output to various formats."
 licence = "MIT"
 keywords = ["todo", "cli", "workflow"]
+repository = "https://github.com/timonv/dowhatagain"
+categories = ["command-line-utilities"]
 
 [dependencies]
 anyhow = "1.0.86"
