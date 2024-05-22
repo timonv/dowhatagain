@@ -1,4 +1,4 @@
-# Todors
+# Dowhatagain
 
 Simple tool for filtering todos from a piped in list of files and outputting to various formats.
 
@@ -16,12 +16,12 @@ Manual:
 - Run `cargo install --path .`
 
 Via cargo:
-`cargo install todors`
+`cargo install dowhatagain`
 
 ## Example usage
 
 Get all TODOs in a repository:
-`fd . | todors`
+`fd . | dowhatagain`
 
 Output:
 
@@ -33,7 +33,7 @@ TODO: Other thing
 ```
 
 Get all TODOs for the current changeset and output to markdown:
-`git diff master --name-only | todors --output markdown`
+`git diff master --name-only | dowhatagain --output markdown`
 
 ```markdown
 - [ ] file.rs:3 Do thing
