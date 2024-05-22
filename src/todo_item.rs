@@ -1,6 +1,7 @@
-use std::{fmt::Display, path::PathBuf};
+use std::{cell::OnceCell, fmt::Display, path::PathBuf, sync::OnceLock};
 
 use derive_builder::Builder;
+use regex::Regex;
 
 #[derive(Builder, Debug)]
 pub struct TodoItem {
@@ -48,8 +49,14 @@ impl Display for TodoItem {
 }
 
 fn extract_task(line: &str) -> Option<String> {
-    let regex = regex::Regex::new(
-        r"(?x)
+    if line.is_empty() || !line.contains("TODO") {
+        return None;
+    }
+
+    static REGEX: OnceLock<Regex> = OnceLock::new();
+    let regex = REGEX.get_or_init(|| {
+        regex::Regex::new(
+            r"(?x)
             (?: //.*? 
               | /\*.*?\*/ 
               | \#.*? 
@@ -59,14 +66,16 @@ fn extract_task(line: &str) -> Option<String> {
             .*?
             \bTODO\b[:]?[ \t]*
             (.*)",
-    )
-    .unwrap();
+        )
+        .expect("Failed to build regex")
+    });
 
     regex
         .captures(line)
         .and_then(|c| c.get(1))
-        .map(|m| strip_trailing_comment_symbols(m.as_str()))
-        .map(|task| task.trim().to_string())
+        .map(|m| strip_trailing_comment_symbols(m.as_str()).trim())
+        .filter(|task| !task.is_empty())
+        .map(String::from)
 }
 
 fn strip_trailing_comment_symbols(todo_text: &str) -> &str {
