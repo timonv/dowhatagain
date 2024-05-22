@@ -6,7 +6,14 @@ TODO comments in code have a tendency to be just left there yet they also have t
 
 ## Installation
 
-tbd
+Manual:
+
+- Clone the repository
+- Install the rust toolchain
+- Run `cargo install --path .`
+
+Via cargo:
+`cargo install todors`
 
 ## Example usage
 
@@ -25,7 +32,7 @@ TODO: Other thing
 Get all TODOs for the current changeset and output to markdown:
 `git diff master --name-only | todors --output markdown`
 
-```
+```markdown
 - [ ] file.rs:3 Do thing
 - [ ] other_file.rs:4 Do other thing
 ```
