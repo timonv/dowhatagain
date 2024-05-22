@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 description = "Simple cli tool to extract todos from piped in files and output to various formats."
 licence = "MIT"
+keywords = ["todo", "cli", "workflow"]
 
 [dependencies]
 anyhow = "1.0.86"
