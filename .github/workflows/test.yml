@@ -17,4 +17,4 @@ jobs:
       - name: Fmt
         run: cargo fmt --check
       - name: Test
-        run: cargo nextest run
+        run: cargo test
