@@ -1,6 +1,6 @@
 [package]
 name = "dowhatagain"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "Simple cli tool to extract todos from piped in files and output to various formats."
 license = "MIT"

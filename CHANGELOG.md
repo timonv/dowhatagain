@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1](https://github.com/timonv/dowhatagain/compare/v0.1.0...v0.1.1) - 2024-05-23
+
+### Other
+- Merge pull request [#7](https://github.com/timonv/dowhatagain/pull/7) from timonv/release-plz-2024-05-23T00-20-45Z
+
 ## [0.1.0](https://github.com/timonv/dowhatagain/releases/tag/v0.1.0) - 2024-05-23
 
 ### Added
