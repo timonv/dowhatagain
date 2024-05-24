@@ -1,8 +1,9 @@
 use anyhow::{Context as _, Result};
 use clap::Parser;
 use itertools::Itertools;
+use rayon::prelude::*;
 use std::{
-    io::{self, BufRead, IsTerminal},
+    io::{self, BufRead, BufReader, IsTerminal},
     path::PathBuf,
 };
 
@@ -46,24 +47,35 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         return Ok(());
     }
 
+    let input = BufReader::new(stdin);
+
     let Cli {
         output,
         group_by,
         detail,
     } = args;
 
-    let mut todos = Vec::new();
+    let todos: Vec<TodoItem> = input
+        .lines()
+        .par_bridge()
+        .try_fold(Vec::new, |mut todos, path| {
+            let path = path?.to_owned();
 
-    for path in stdin.lock().lines() {
-        let path = path.expect("Error reading path");
+            let metadata = std::fs::metadata(&path)?;
+            if !metadata.is_file() {
+                return Ok(todos);
+            }
 
-        if let Ok(file) = std::fs::read_to_string(&path) {
-            let mut new_items = todo_items_from_file(&file, &path, &detail)?;
-            todos.append(&mut new_items)
-        } else {
-            continue;
-        }
-    }
+            let file = std::fs::read_to_string(&path)?;
+            todo_items_from_file(&file, &path, &detail).map(|mut new_items| {
+                todos.append(&mut new_items);
+                todos
+            })
+        })
+        .try_reduce(Vec::new, |mut acc, todos| {
+            acc.extend(todos);
+            Ok(acc)
+        })?;
 
     let mut group_spacer = "";
     if let Some(GroupBy::File) = group_by {
