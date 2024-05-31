@@ -61,8 +61,15 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .try_fold(Vec::new, |mut todos, path| {
             let path = path?.to_owned();
 
-            let metadata = std::fs::metadata(&path)?;
-            if !metadata.is_file() {
+            // Ignore files that don't exist or are not files
+            let result = std::fs::metadata(&path).and_then(|m| {
+                if m.is_file() {
+                    Ok(m)
+                } else {
+                    Err(std::io::Error::new(io::ErrorKind::Other, "Not a file"))
+                }
+            });
+            if result.is_err() {
                 return Ok(todos);
             }
 
